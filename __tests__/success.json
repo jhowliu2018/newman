@@ -1,0 +1,48 @@
+{
+	"info": {
+		"_postman_id": "8c77552f-6de8-46b7-9927-f9a0a3f8ef9b",
+		"name": "newman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "6f63095b-155b-41c7-9560-99b00fbbad9e",
+			"name": "https://jsonplaceholder.typicode.com/posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80fd49ec-4fbe-4f43-9e65-07b15b0f8212",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				},
+				"description": "api testing for posts"
+			},
+			"response": []
+		}
+	]
+}

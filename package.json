@@ -4,7 +4,7 @@
   "author": "jhow <jhow.liu@pentium.network>",
   "license": "MIT",
   "scripts": {
-    "test": "newman run ./__tests__/success.json"
+    "test": "newman run ./__tests__/servers.collection.json"
   },
   "devDependencies": {
     "newman": "^4.0.2"

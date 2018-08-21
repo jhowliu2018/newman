@@ -1,0 +1,12 @@
+{
+  "name": "newman-testing",
+  "version": "1.0.0",
+  "author": "jhow <jhow.liu@pentium.network>",
+  "license": "MIT",
+  "scripts": {
+    "test": "newman run ./__tests__/*.collection.json"
+  },
+  "devDependencies": {
+    "newman": "^4.0.2"
+  }
+}

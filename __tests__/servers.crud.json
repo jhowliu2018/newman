@@ -1,0 +1,692 @@
+{
+	"info": {
+		"_postman_id": "1a78f547-981b-4fc8-9111-4454cb5a4b30",
+		"name": "Server CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "ea938eac-1839-4641-bcad-8adda187dd70",
+			"name": "Login with potato id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a89530e-bc11-4be9-88a8-a93df9bc3c65",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"",
+							"test(\"should return a valid response\", () => {",
+							"  expect(response.code).to.equal(200)",
+							"});",
+							"",
+							"test(\"should return not null body\", () => {",
+							"  expect(responseBody.length).to.be.above(0) ",
+							"  pm.globals.set(\"AUTH_TOKEN\", responseBody);",
+							"})",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "feedc544-ab11-4e1e-be28-f373b755f500",
+						"type": "text/javascript",
+						"exec": [
+							"pm.globals.clear()",
+							"",
+							"pm.globals.set(\"SERVER_IDS\", JSON.stringify([]));",
+							"pm.globals.set(\"ix\", 0)"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"potatoId\": \"xw61lq\"\n}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/account/potato/token",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"account",
+						"potato",
+						"token"
+					]
+				},
+				"description": "get auth token with potato id"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "9dc3bc63-2317-42c8-9cee-a79e7be1309e",
+			"name": "Create Server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82c005c9-0a77-4200-b094-f5c5be4835ae",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"",
+							"const body = response.json();",
+							"const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"",
+							"test(\"Should return a valid response.\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"  ",
+							"test(\"Should return a valid body.\", () => {",
+							"  // https://www.liquid-technologies.com/online-json-to-schema-converter",
+							"  const schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"string\",",
+							"        \"examples\": [",
+							"          \"xOaVQo\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\"",
+							"    ] ",
+							"  }",
+							"",
+							"  expect(tv4.validate(body, schema)).to.be.true;",
+							"",
+							"  servers.push(body.id);",
+							" ",
+							"  pm.globals.set(\"SERVER_IDS\", JSON.stringify(servers));",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "75974313-a6f9-4c1e-ae1a-57c1e3a5a3a0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.globals.set(\"REQUEST_BODY\", JSON.stringify(data.data))",
+							"",
+							"console.log(pm.globals.get(\"REQUEST_BODY\"))"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{REQUEST_BODY}}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/server",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"server"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "59507d62-b8ac-4d58-9a3d-8f761a97eff3",
+			"name": "GET Server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f21280ee-4bb8-4d37-aa49-21c73253e3eb",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"",
+							"const body = response.json();",
+							"",
+							"test(\"Should return a valid response.\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"",
+							"test(\"Should return a valid body.\", () => {",
+							"    const schema = {",
+							"    \t\"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \t\"type\": \"object\",",
+							"    \t\"properties\": {",
+							"    \t\t\"dnsStatus\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"winPublicKeyId\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"winPrivateKeyId\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"os\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"records\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": {}",
+							"    \t\t},",
+							"    \t\t\"ip\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"sshPassword\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"description\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"expiresDate\": {",
+							"    \t\t\t\"type\": \"object\",",
+							"    \t\t\t\"properties\": {",
+							"    \t\t\t\t\"low\": {",
+							"    \t\t\t\t\t\"type\": \"integer\"",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"high\": {",
+							"    \t\t\t\t\t\"type\": \"integer\"",
+							"    \t\t\t\t}",
+							"    \t\t\t},",
+							"    \t\t\t\"required\": [",
+							"    \t\t\t\t\"low\",",
+							"    \t\t\t\t\"high\"",
+							"    \t\t\t]",
+							"    \t\t},",
+							"    \t\t\"type\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"winPassword\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"createAt\": {",
+							"    \t\t\t\"type\": \"integer\"",
+							"    \t\t},",
+							"    \t\t\"ipStatus\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"features\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"port\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"machineParams\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"envType\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"domainName\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"name\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"banned\": {",
+							"    \t\t\t\"type\": \"boolean\"",
+							"    \t\t},",
+							"    \t\t\"region\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"account\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"gateOnePassword\": {",
+							"    \t\t\t\"type\": [\"string\", \"null\"]",
+							"    \t\t},",
+							"    \t\t\"id\": {",
+							"    \t\t\t\"type\": \"string\"",
+							"    \t\t},",
+							"    \t\t\"team\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": [",
+							"    \t\t\t\t{",
+							"    \t\t\t\t\t\"type\": \"object\",",
+							"    \t\t\t\t\t\"properties\": {",
+							"    \t\t\t\t\t\t\"teamName\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"chatId\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t}",
+							"    \t\t\t\t\t},",
+							"    \t\t\t\t\t\"required\": [",
+							"    \t\t\t\t\t\t\"teamName\",",
+							"    \t\t\t\t\t\t\"chatId\"",
+							"    \t\t\t\t\t]",
+							"    \t\t\t\t}",
+							"    \t\t\t]",
+							"    \t\t},",
+							"    \t\t\"serverGroups\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": {}",
+							"    \t\t},",
+							"    \t\t\"key\": {",
+							"    \t\t\t\"type\": \"object\",",
+							"    \t\t\t\"properties\": {",
+							"    \t\t\t\t\"key\": {",
+							"    \t\t\t\t\t\"type\": [\"string\", \"null\"]",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"name\": {",
+							"    \t\t\t\t\t\"type\": [\"string\", \"null\"]",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"description\": {",
+							"    \t\t\t\t\t\"type\": [\"string\", \"null\"]",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"id\": {",
+							"    \t\t\t\t\t\"type\": [\"string\", \"null\"]",
+							"    \t\t\t\t}",
+							"    \t\t\t},",
+							"    \t\t\t\"required\": [",
+							"    \t\t\t  \"key\",",
+							"    \t\t\t  \"name\",",
+							"    \t\t\t  \"description\",",
+							"    \t\t\t  \"id\"",
+							"    \t\t\t]",
+							"    \t\t},",
+							"    \t\t\"permission\": {",
+							"    \t\t\t\"type\": \"object\",",
+							"    \t\t\t\"properties\": {",
+							"    \t\t\t\t\"Read\": {",
+							"    \t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"Create\": {",
+							"    \t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"Update\": {",
+							"    \t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"Delete\": {",
+							"    \t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t},",
+							"    \t\t\t\t\"Deploy\": {",
+							"    \t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t}",
+							"    \t\t\t},",
+							"    \t\t\t\"required\": [",
+							"    \t\t\t\t\"Read\",",
+							"    \t\t\t\t\"Create\",",
+							"    \t\t\t\t\"Update\",",
+							"    \t\t\t\t\"Delete\",",
+							"    \t\t\t\t\"Deploy\"",
+							"    \t\t\t]",
+							"    \t\t},",
+							"    \t\t\"otherIps\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": {}",
+							"    \t\t},",
+							"    \t\t\"jumpServers\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": {}",
+							"    \t\t},",
+							"    \t\t\"byos\": {",
+							"    \t\t\t\"type\": \"array\",",
+							"    \t\t\t\"items\": [",
+							"    \t\t\t\t{",
+							"    \t\t\t\t\t\"type\": \"object\",",
+							"    \t\t\t\t\t\"properties\": {",
+							"    \t\t\t\t\t\t\"name\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"teamName\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"description\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"chatId\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"id\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"status\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"default\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"boolean\"",
+							"    \t\t\t\t\t\t},",
+							"    \t\t\t\t\t\t\"endpoint\": {",
+							"    \t\t\t\t\t\t\t\"type\": \"string\"",
+							"    \t\t\t\t\t\t}",
+							"    \t\t\t\t\t},",
+							"    \t\t\t\t\t\"required\": [",
+							"    \t\t\t\t\t\t\"name\",",
+							"    \t\t\t\t\t\t\"teamName\",",
+							"    \t\t\t\t\t\t\"description\",",
+							"    \t\t\t\t\t\t\"chatId\",",
+							"    \t\t\t\t\t\t\"id\",",
+							"    \t\t\t\t\t\t\"status\",",
+							"    \t\t\t\t\t\t\"default\",",
+							"    \t\t\t\t\t\t\"endpoint\"",
+							"    \t\t\t\t\t]",
+							"    \t\t\t\t}",
+							"    \t\t\t]",
+							"    \t\t}",
+							"    \t},",
+							"    \t\"required\": [",
+							"    \t\t\"dnsStatus\",",
+							"    \t\t\"winPublicKeyId\",",
+							"    \t\t\"winPrivateKeyId\",",
+							"    \t\t\"os\",",
+							"    \t\t\"records\",",
+							"    \t\t\"ip\",",
+							"    \t\t\"sshPassword\",",
+							"    \t\t\"description\",",
+							"    \t\t\"expiresDate\",",
+							"    \t\t\"type\",",
+							"    \t\t\"winPassword\",",
+							"    \t\t\"createAt\",",
+							"    \t\t\"ipStatus\",",
+							"    \t\t\"features\",",
+							"    \t\t\"port\",",
+							"    \t\t\"machineParams\",",
+							"    \t\t\"envType\",",
+							"    \t\t\"domainName\",",
+							"    \t\t\"name\",",
+							"    \t\t\"banned\",",
+							"    \t\t\"region\",",
+							"    \t\t\"account\",",
+							"    \t\t\"gateOnePassword\",",
+							"    \t\t\"id\",",
+							"    \t\t\"team\",",
+							"    \t\t\"serverGroups\",",
+							"    \t\t\"key\",",
+							"    \t\t\"permission\",",
+							"    \t\t\"otherIps\",",
+							"    \t\t\"jumpServers\",",
+							"    \t\t\"byos\"",
+							"    \t]",
+							"    };",
+							"",
+							"    expect(tv4.validate(body, schema)).to.be.true; ",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b626c775-ebc5-42a4-8898-b919527feeb3",
+						"type": "text/javascript",
+						"exec": [
+							"const ix = parseInt(pm.globals.get(\"ix\"));",
+							"",
+							"const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"",
+							"if (ix < servers.length) {",
+							"  const server = servers[ix];",
+							"  ",
+							"  pm.globals.set(\"ix\", ix+1);",
+							"  pm.globals.set(\"SERVER_ID\", server);",
+							"  postman.setNextRequest(\"PATCH Server\");",
+							"} else {",
+							"  postman.setNextRequest(\"Delete Servers\");",
+							"}",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/server/{{SERVER_ID}}",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"server",
+						"{{SERVER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "f0a69c47-7e09-47b6-aca8-54da6c0a084a",
+			"name": "PATCH Server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a4dff7bb-52fd-49e1-a7fd-8024c44bac53",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"const patch = data.patch;",
+							"",
+							"test(\"Should return a valid response.\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"",
+							"const token = pm.globals.get(\"AUTH_TOKEN\")",
+							"const server = pm.globals.get(\"SERVER_ID\")",
+							"",
+							"const requests = {",
+							"  url: `https://dev-portal.pentium.network/api/server/${server}`,",
+							"  header: `Authorization:${token}`,",
+							"  method: \"GET\"",
+							"};",
+							"",
+							"pm.sendRequest(requests, (err, res) => {",
+							"  const body = res.json();",
+							"  ",
+							"  test(\"Should match the patched part.\", () => {",
+							"    expect(res.code).to.equal(200);",
+							"    // Check the modified values is applied correctly",
+							"    // patch data from data.json",
+							"    for (var k in patch) {",
+							"      expect(body).to.have.property(k, patch[k]);",
+							"    }",
+							"  })",
+							"})",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1e4af102-fb57-4705-aa2b-5a6c0a466167",
+						"type": "text/javascript",
+						"exec": [
+							"const ix = parseInt(pm.globals.get(\"ix\"));",
+							"",
+							"const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"",
+							"// Destructuring",
+							"pm.globals.set(\"PATCH_BODY\", JSON.stringify(data.patch))",
+							"",
+							"// conditional flow",
+							"if (ix+1 < servers.length) {",
+							"  postman.setNextRequest(\"GET Server\");",
+							"} else {",
+							"  postman.setNextRequest(\"Delete Servers\");",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{{PATCH_BODY}}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/server/{{SERVER_ID}}",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"server",
+						"{{SERVER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "0bf2e5a7-a969-460c-8ce5-5d0da26dba37",
+			"name": "Delete Servers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8da40cc4-4045-4a63-8545-5a8c0f8dcc82",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"const body = response.json();",
+							"",
+							"test(\"Should return a valid response\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"  ",
+							"test(\"Should return a valid body\", () => {",
+							"  const schema = {",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"array\",",
+							"        \"examples\": [",
+							"          \"xOaVQo\",",
+							"          \"xOaVQ2\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\"",
+							"    ] ",
+							"  }  ",
+							"  expect(tv4.validate(body, schema)).to.be.true;",
+							"});",
+							"  ",
+							"test(\"Should delete correct servers\", () => {",
+							"  const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"  ",
+							"  expect(body.id).to.be.an(\"array\");",
+							"  expect(body.id.length).to.equal(servers.length);",
+							"  expect(body.id).to.include.members(servers);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "asdsa",
+						"value": "{{SERVER_IDS}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"serverIds\": {{SERVER_IDS}}\n}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/servers/",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"servers",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

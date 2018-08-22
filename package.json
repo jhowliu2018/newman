@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "asda": "newman run ./__tests__/SERVERS.CRUD.json -g ./__tests__/servers.globals.json",
-    "test": "newman run ./__tests__/SERVER.CRUD.json"
+    "test": "newman run ./__tests__/servers.crud.json -d ./__tests__/data.json"
   },
   "devDependencies": {
     "newman": "^4.0.2"

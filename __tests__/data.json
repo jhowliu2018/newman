@@ -1,0 +1,71 @@
+[
+  {
+    "data": {
+      "name": "GGGGG",
+      "description": "",
+      "createAt": 1534176000,
+      "features": "跳板的伺服器1",
+      "ip": "191.121.112.197",
+      "port": "35",
+      "domainName": "",
+      "keyId": null,
+      "account": "1111",
+      "region": "TW",
+      "machineParams": "",
+      "envType": "local",
+      "teams": [
+         "x4BrO7"
+      ],
+      "otherIps": [
+         {
+            "ip": "190.55.31.31",
+            "description": ""
+         },
+         {
+            "ip": "190.55.31.41",
+            "description": ""
+         }
+      ],
+      "os": "CentOS 7.x",
+      "sshPassword": "test"
+    },
+    "patch": {
+      "name": "GGGGGGGGGGGGG"
+    }
+  }, 
+  {
+    "data": {
+      "name": "GGGGG2",
+      "description": "",
+      "createAt": 1534176000,
+      "features": "跳板的伺服器2",
+      "ip": "191.121.11.236",
+      "port": "35",
+      "domainName": "",
+      "keyId": null,
+      "account": "1111",
+      "region": "TW",
+      "machineParams": "",
+      "envType": "local",
+      "teams": [
+        "x4BrO7"
+      ],
+      "otherIps": [
+        {
+          "ip": "190.55.31.32",
+          "description": ""
+        },
+        {
+          "ip": "190.55.31.42",
+          "description": ""
+        }
+      ],
+      "os": "CentOS 7.x",
+      "sshPassword": "test"
+    },
+    "patch": {
+      "name": "LALALAND"
+    }
+  }
+
+]

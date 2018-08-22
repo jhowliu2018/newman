@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "1a78f547-981b-4fc8-9111-4454cb5a4b30",
+		"name": "Server CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "f114f615-df76-4444-abc9-80632e36035c",
+			"name": "Login with potato id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "88035629-f4c8-4008-9826-3f619bc64efc",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"",
+							"test('should return a valid response', () => {",
+							"  expect(response.code).to.equal(200)",
+							"});",
+							"",
+							"test('should return not null body', () => {",
+							"  expect(responseBody.length).to.be.above(0) ",
+							"  pm.globals.set('AUTH_TOKEN', responseBody);",
+							"})",
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "90a9f131-ca01-4e37-a224-7c2ab968c9f2",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.globals.unset(\"AUTH_TOKEN\");",
+							"pm.globals.set('SERVER_IDS', JSON.stringify([]));"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"potatoId\": \"xw61lq\"\n}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/account/potato/token",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"account",
+						"potato",
+						"token"
+					]
+				},
+				"description": "get auth token with potato id"
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "2d6aef41-4451-41d9-b13e-614e36d11f1e",
+			"name": "Create Server",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9558b070-7806-4866-ae8a-2089b42d4bb2",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"const body = response.json();",
+							"",
+							"test(\"Should return a valid response.\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"  ",
+							"test(\"Should return a valid body.\", () => {",
+							"  // https://www.liquid-technologies.com/online-json-to-schema-converter",
+							"  const schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"string\",",
+							"        \"examples\": [",
+							"          \"xOaVQo\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\"",
+							"    ] ",
+							"  }",
+							"",
+							"  expect(tv4.validate(body, schema)).to.be.true;",
+							"  const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"  servers.push(body.id);",
+							"  ",
+							"  pm.globals.set('SERVER_IDS', JSON.stringify(servers));",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\": \"跳板的伺服器24\",\n   \"description\": \"\",\n   \"createAt\": 1534176000,\n   \"features\": \"跳板的伺服器2\",\n   \"ip\": \"191.121.11.119\",\n   \"port\": \"35\",\n   \"domainName\": \"\",\n   \"keyId\": null,\n   \"account\": \"1111\",\n   \"region\": \"TW\",\n   \"machineParams\": \"\",\n   \"envType\": \"local\",\n   \"teams\": [\n      \"x4BrO7\"\n   ],\n   \"otherIps\": [\n      {\n         \"ip\": \"190.55.31.31\",\n         \"description\": \"\"\n      },\n      {\n         \"ip\": \"190.55.31.41\",\n         \"description\": \"\"\n      }\n   ],\n   \"os\": \"CentOS 7.x\",\n   \"sshPassword\": \"test\"\n}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/server/",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"server",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"_postman_id": "164f639d-641c-4c27-bd00-30e9c20d1dab",
+			"name": "Delete Servers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e28103a8-fcfa-4292-b738-2de73966dfc3",
+						"type": "text/javascript",
+						"exec": [
+							"const test = pm.test;",
+							"const expect = pm.expect;",
+							"const response = pm.response;",
+							"const body = response.json();",
+							"",
+							"test(\"Should return a valid response\", () => {",
+							"  expect(response.code).to.equal(200);",
+							"});",
+							"  ",
+							"test(\"Should return a valid body\", () => {",
+							"  const schema = {",
+							"    \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"    \"type\": \"object\",",
+							"    \"properties\": {",
+							"      \"id\": {",
+							"        \"type\": \"array\",",
+							"        \"examples\": [",
+							"          \"xOaVQo\",",
+							"          \"xOaVQ2\"",
+							"        ]",
+							"      }",
+							"    },",
+							"    \"required\": [",
+							"      \"id\"",
+							"    ] ",
+							"  }  ",
+							"  expect(tv4.validate(body, schema)).to.be.true;",
+							"});",
+							"  ",
+							"test(\"Should delete correct servers\", () => {",
+							"  const servers = JSON.parse(pm.globals.get(\"SERVER_IDS\"));",
+							"  ",
+							"  expect(body.id).to.be.an(\"array\");",
+							"  expect(body.id.length).to.equal(servers.length);",
+							"  expect(body.id).to.include.members(servers);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{AUTH_TOKEN}}"
+					},
+					{
+						"key": "asdsa",
+						"value": "{{SERVER_IDS}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"serverIds\": {{SERVER_IDS}}\n}"
+				},
+				"url": {
+					"raw": "https://dev-portal.pentium.network/api/servers/",
+					"protocol": "https",
+					"host": [
+						"dev-portal",
+						"pentium",
+						"network"
+					],
+					"path": [
+						"api",
+						"servers",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -31,6 +31,10 @@
     },
     "patch": {
       "name": "GGGGGGGGGGGGG"
+    },
+    "host": "http://192.168.89.109",
+    "auth": {
+      "potatoId": "JxpLxv"
     }
   }, 
   {
@@ -65,6 +69,10 @@
     },
     "patch": {
       "name": "LALALAND"
+    },
+    "host": "http://192.168.89.109",
+    "auth": {
+      "potatoId": "JxpLxv"
     }
   }
 

@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"_postman_id": "ea938eac-1839-4641-bcad-8adda187dd70",
+			"_postman_id": "fd1ed946-8fef-43ca-ab74-9f57c0199cfa",
 			"name": "Login with potato id",
 			"event": [
 				{
@@ -35,13 +35,14 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "feedc544-ab11-4e1e-be28-f373b755f500",
+						"id": "45fe544a-1be7-4208-bfed-7cf0ecb43a1a",
 						"type": "text/javascript",
 						"exec": [
 							"pm.globals.clear()",
 							"",
+							"pm.globals.set(\"POTATO_ID\", JSON.stringify(data.auth));",
 							"pm.globals.set(\"SERVER_IDS\", JSON.stringify([]));",
-							"pm.globals.set(\"ix\", 0)"
+							"pm.globals.set(\"ix\", 0);"
 						]
 					}
 				}
@@ -56,15 +57,12 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"potatoId\": \"xw61lq\"\n}"
+					"raw": "{{POTATO_ID}}"
 				},
 				"url": {
-					"raw": "https://dev-portal.pentium.network/api/account/potato/token",
-					"protocol": "https",
+					"raw": "{{host}}/api/account/potato/token",
 					"host": [
-						"dev-portal",
-						"pentium",
-						"network"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -78,7 +76,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "9dc3bc63-2317-42c8-9cee-a79e7be1309e",
+			"_postman_id": "44352391-ec22-47ae-a4c3-164b6a9ee6ce",
 			"name": "Create Server",
 			"event": [
 				{
@@ -156,12 +154,9 @@
 					"raw": "{{REQUEST_BODY}}"
 				},
 				"url": {
-					"raw": "https://dev-portal.pentium.network/api/server",
-					"protocol": "https",
+					"raw": "{{host}}/api/server",
 					"host": [
-						"dev-portal",
-						"pentium",
-						"network"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -172,7 +167,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "59507d62-b8ac-4d58-9a3d-8f761a97eff3",
+			"_postman_id": "6f6deb14-1efa-4526-b0d7-8f4f6a779ef9",
 			"name": "GET Server",
 			"event": [
 				{
@@ -486,12 +481,9 @@
 				],
 				"body": {},
 				"url": {
-					"raw": "https://dev-portal.pentium.network/api/server/{{SERVER_ID}}",
-					"protocol": "https",
+					"raw": "{{host}}/api/server/{{SERVER_ID}}",
 					"host": [
-						"dev-portal",
-						"pentium",
-						"network"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -503,13 +495,13 @@
 			"response": []
 		},
 		{
-			"_postman_id": "f0a69c47-7e09-47b6-aca8-54da6c0a084a",
+			"_postman_id": "20065c52-26b5-4a81-9b84-637c7cfe1766",
 			"name": "PATCH Server",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "a4dff7bb-52fd-49e1-a7fd-8024c44bac53",
+						"id": "0ce6dd81-b633-4059-958a-e5ed3df8fb93",
 						"type": "text/javascript",
 						"exec": [
 							"const test = pm.test;",
@@ -525,7 +517,7 @@
 							"const server = pm.globals.get(\"SERVER_ID\")",
 							"",
 							"const requests = {",
-							"  url: `https://dev-portal.pentium.network/api/server/${server}`,",
+							"  url: `${data.host}/api/server/${server}`,",
 							"  header: `Authorization:${token}`,",
 							"  method: \"GET\"",
 							"};",
@@ -586,12 +578,9 @@
 					"raw": "{{PATCH_BODY}}"
 				},
 				"url": {
-					"raw": "https://dev-portal.pentium.network/api/server/{{SERVER_ID}}",
-					"protocol": "https",
+					"raw": "{{host}}/api/server/{{SERVER_ID}}",
 					"host": [
-						"dev-portal",
-						"pentium",
-						"network"
+						"{{host}}"
 					],
 					"path": [
 						"api",
@@ -603,7 +592,7 @@
 			"response": []
 		},
 		{
-			"_postman_id": "0bf2e5a7-a969-460c-8ce5-5d0da26dba37",
+			"_postman_id": "63264f4a-3949-45a1-843c-cea8b3747053",
 			"name": "Delete Servers",
 			"event": [
 				{
@@ -672,12 +661,9 @@
 					"raw": "{\n\t\"serverIds\": {{SERVER_IDS}}\n}"
 				},
 				"url": {
-					"raw": "https://dev-portal.pentium.network/api/servers/",
-					"protocol": "https",
+					"raw": "{{host}}/api/servers/",
 					"host": [
-						"dev-portal",
-						"pentium",
-						"network"
+						"{{host}}"
 					],
 					"path": [
 						"api",
